@@ -1,6 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
+    <title>IHTAM.NET</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -96,7 +98,7 @@
             <div class="col-6 font-weight-bold">Военная часть:</div>  <div class="col-6" id="militaryUnit"></div>
             <div class="col-6 font-weight-bold">Ссылка на ВК:</div>  <div class="col-6" id="vk"></div>
             <div class="col-6 font-weight-bold">Ссылка на instagram:</div>  <div class="col-6" id="inst"></div>
-            <div class="col-6 font-weight-bold">Ссылка на ресурс:</div>  <div class="col-6" id="linkToSource"></div>
+            <div class="col-6 font-weight-bold">Источник:</div> <div class="col-6" id="linkToSource"></div>
             <div class="col-6 font-weight-bold">Информация про друзей:</div>  <div class="col-12" id="friendsInfo"></div>
             <div class="col-6 font-weight-bold">Детали:</div>  <div class="col-12" id="moreInfo"></div>
             <div class="col-6 font-weight-bold">Доп фото:</div>  
@@ -149,7 +151,7 @@
 
         if(person.vk )$('#vk').html('<a target="_blank" href=' + person.vk + '>' + person.vk + '</a>')
         if(person.inst) $('#inst').html('<a target="_blank" href=' + person.inst + '>' + person.inst + '</a>')
-        if(person.linkToSource) $('#linkToSource').html('<a target="_blank" href=' + person.link_to_source + '>' + person.linkToSource + '</a>')
+        if(person.link_to_source) $('#linkToSource').html('<a target="_blank" href=' + person.link_to_source + '>' + person.link_to_source + '</a>')
       }
 
       var setGalleryByTab = function(tab) {
@@ -161,7 +163,7 @@
 
         var content = ''
         $.map(filteredData, function( val, i ) {
-          content += '<div class="col-4 gallery-person" id="' + i + '"> \
+          content += '<div class="col-lg-4 gallery-person" id="' + i + '"> \
           <img src="' + val?.main_photo + '"/> \
           <div>Номер: <span class="person-num">' + val?.num + '</span></div> \
           <div class="person-name">' + val?.full_name + '</div>\
