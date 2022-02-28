@@ -67,7 +67,8 @@
       </div>
     </div>
     <div class="row footer text-center justify-content-center">
-      <div class="col-6">Хуй войне.</div>
+      <div class="col-7">@ designed by <a href="">M T</a></div>
+      <div class="col-7">"Сделано в бомбоубежище за час"</div>
     </div>
 
 
@@ -76,7 +77,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Иван Ианов Иванович</h5>
+        <h5 class="modal-title" id="modalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -85,7 +86,7 @@
         
         <div class="container detailed-person">
           <div class="row">
-            <div class="col12" id="avatar">
+            <div class="col-12 text-center mb-4" id="avatar">
               <img id="mainPhoto" src=""/>
             </div>
             <div class="col-6 font-weight-bold">Номер:</div>  <div class="col-6" id="num"></div>
@@ -99,11 +100,7 @@
             <div class="col-6 font-weight-bold">Информация про друзей:</div>  <div class="col-12" id="friendsInfo"></div>
             <div class="col-6 font-weight-bold">Детали:</div>  <div class="col-12" id="moreInfo"></div>
             <div class="col-6 font-weight-bold">Доп фото:</div>  
-            <div class="col-12 mb-3" id="morePhoto1"></div>
-            <div class="col-12 mb-3" id="morePhoto2"></div>
-            <div class="col-12 mb-3" id="morePhoto3"></div>
-            <div class="col-12 mb-3" id="morePhoto4"></div>
-            <div class="col-12 mb-3" id="morePhoto5"></div>
+            <div class="col-12" id="morePhoto"></div>
           </div>
         </div>
 
@@ -131,21 +128,24 @@
         $('#modal').modal('show')
         parent.location.hash = person.num;
         $('#mainPhoto').attr('src', person.main_photo)
-        if(person.more_photo_1) $('#morePhoto1').html('<img src="' + person.more_photo_1 + '">')
-        if(person.more_photo_2) $('#morePhoto2').html('<img src="' + person.more_photo_2 + '">')
-        if(person.more_photo_3) $('#morePhoto3').html('<img src="' + person.more_photo_3 + '">')
-        if(person.more_photo_4) $('#morePhoto4').html('<img src="' + person.more_photo_4 + '">')
-        if(person.more_photo_5) $('#morePhoto5').html('<img src="' + person.more_photo_5 + '">')
+
+        if(person.more_photo && person.more_photo.length) {
+          var images = ''
+          $.map(person.more_photo, function(image_url) {
+            images += '<div class="col-12 mb-3"><img src="' + image_url + '"></div>'
+          });
+          $('#morePhoto').html(images)
+        }
 
         $('#num').html(person.num)
         $('#category').html(person.category)
-        $('#fullName').html(person.full_name)
-        $('#modalLabel').html(person.full_name)
-        $('#dateOfBirth').html(person.date_of_birth)
-        $('#militaryUnit').html(person.military_unit)
+        $('#fullName').html(person.full_name || '-')
+        $('#modalLabel').html(person.full_name  || '-')
+        $('#dateOfBirth').html(person.date_of_birth  || '-') 
+        $('#militaryUnit').html(person.military_unit  || '-')
 
-        $('#friendsInfo').html(person.friends_info)
-        $('#moreInfo').html(person.more_info)
+        $('#friendsInfo').html(person.friends_info || '-')
+        $('#moreInfo').html(person.more_info  || '-')
 
         if(person.vk )$('#vk').html('<a target="_blank" href=' + person.vk + '>' + person.vk + '</a>')
         if(person.inst) $('#inst').html('<a target="_blank" href=' + person.inst + '>' + person.inst + '</a>')
@@ -153,9 +153,8 @@
       }
 
       var setGalleryByTab = function(tab) {
-        debugger
         if(!data) return ''
-        if(tab !== 'Пленный' && tab !== 'Мертвый') return ''
+        if(tab !== 'Пленные' && tab !== 'Мертвые') return ''
         filteredData = data.filter(function(value) {
           return value.category === tab
         })
@@ -166,93 +165,19 @@
           <img src="' + val?.main_photo + '"/> \
           <div>Номер: <span class="person-num">' + val?.num + '</span></div> \
           <div class="person-name">' + val?.full_name + '</div>\
-          <div class="person-date">' + val?.date_of_birth + '</div> \
+          <div class="person-date">' + (val?.date_of_birth || '-') + '</div> \
         </div>'
         });
         return content
       }
       /////////////////////////////////////////////////////////////////////////////////////
 
-      $.getJSON('./db.json', function(x){console.log('!!!', x)})
-      $.getJSON('https://jsonplaceholder.typicode.com/todos/1', function(x){
-        data = [
-        {
-        "num": "1",   
-        "category": "Мертвый",   
-        "main_photo": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "full_name": "Иванов Иван Иванович",   
-        "date_of_birth": "11.11.1111",   
-        "military_unit": "11 111",   
-        "vk": "http://gdh",   
-        "inst": "http://gddh",   
-        "link_to_source": "http://dg",   
-        "more_photo_1": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_2": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_3": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_4": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_5": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "friends_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        "more_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        }, 
-        {
-        "num": "2",   
-        "category": "Пленный",   
-        "main_photo": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "full_name": "Иванов2 Иван2 Иванович2",   
-        "date_of_birth": "11.11.1111",   
-        "military_unit": "11 111",   
-        "vk": "http://gdh",   
-        "inst": "http://gddh",   
-        "link_to_source": "http://dg",   
-        "more_photo_1": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_2": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_3": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_4": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_5": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "friends_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        "more_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        },
-        {
-        "num": "3",   
-        "category": "Пленный",   
-        "main_photo": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "full_name": "Иванов3 Иван3 Иванович3",   
-        "date_of_birth": "11.11.1111",   
-        "military_unit": "11 111",   
-        "vk": "http://gdh",   
-        "inst": "http://gddh",   
-        "link_to_source": "http://dg",   
-        "more_photo_1": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_2": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_3": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_4": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_5": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "friends_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        "more_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        },
-        {
-        "num": "4",   
-        "category": "Пленный",   
-        "main_photo": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "full_name": "Иванов4 Иван4 Иванович45",   
-        "date_of_birth": "11.11.1111",   
-        "military_unit": "11 111",   
-        "vk": "http://gdh",   
-        "inst": "http://gddh",   
-        "link_to_source": "http://dg",   
-        "more_photo_1": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_2": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_3": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_4": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "more_photo_5": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
-        "friends_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        "more_info": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",   
-        },
-        ]
+      $.getJSON('./db.json', function(response){
+        data = response
 
-        $('#personsGallery').html(setGalleryByTab('Пленный'))
+        $('#personsGallery').html(setGalleryByTab('Пленные'))
 
-        const currentPersonNum = parent.location.hash && parent.location.hash.slice(1)
+        const currentPersonNum = +(parent.location.hash && parent.location.hash.slice(1))
         if(currentPersonNum) {
           var person = data.find(function(value) {
             return value.num === currentPersonNum
@@ -268,7 +193,7 @@
         $('#personsGallery').addClass('black')
         $('#personsGallery').removeClass('red')
 
-        $('#personsGallery').html(setGalleryByTab('Мертвый'))
+        $('#personsGallery').html(setGalleryByTab('Мертвые'))
       }); 
       
       $('#tabPrisoners').click(function(e) {
@@ -278,7 +203,7 @@
         $('#personsGallery').addClass('red')
         $('#personsGallery').removeClass('black')
 
-        $('#personsGallery').html(setGalleryByTab('Пленный'))
+        $('#personsGallery').html(setGalleryByTab('Пленные'))
       });
 
       $( "#personsGallery" ).on( "click", ".gallery-person", function(e) {

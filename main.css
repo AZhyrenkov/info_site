@@ -321,8 +321,8 @@
 }
 
 .gallery-person img {
-    width: 100%;
     padding-top: 15px;
+    max-width: 100%;
 }
 
 .gallery-person .person-name {
@@ -369,5 +369,5 @@ a.no-link-style, a.no-link-style:hover {
 }
 
 .detailed-person img {
- width: 100%;
+  max-width: 100%;
 }
