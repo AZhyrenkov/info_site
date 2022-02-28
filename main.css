@@ -356,10 +356,12 @@
 
 a.no-link-style, a.no-link-style:hover {
   color: #000;
+  cursor: pointer;
 }
 
 .footer a, .footer a:hover {
   color: #fff;
+  cursor: pointer;
 }
 
 .row {
