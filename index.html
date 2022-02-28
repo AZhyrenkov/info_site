@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./main.css" crossorigin="anonymous">
+  </head>
+  <body>
+    <img src="./images/header.png" class="logo" />   
+    <div class="container">
+      <div class="row justify-content-center main-text-row">
+        <div class="col-12">
+          <div class="main-text-block">
+            <img class="header-logo" src="./images/Ihtam_net_logo.png" />
+          <div class="font-weight-bold">Внимание всем жителям Российской Федерации, а также территорий Украины, оккупированных и временно контролируемых правительством РФ.</div>
+          <div class="text">
+          24 февраля 2022, посреди ночи, военные силы вашей страны начали массированное вторжение, сопровождаемое применением всего самого современного оружия, находящегося в распоряжении Российской Федерации.
+          </div>
+          <div class="text">
+          Несмотря на обещания вашего правительства взять нашу страну за несколько часов - мы успешно сопротивляемся. Ваших военных здесь никто не ждет, и мы не нуждаемся в освобождении. Миллионы граждан Украины готовы сделать все возможное для отражения атаки, которая уничтожает наши больницы, школы, дороги и города. Мы - единая многомиллионная мотивированная армия.
+        </div>
+        <div class="text">
+          Ваши государственные СМИ врут о том, что операция проходит эффективно и практически без потерь. На самом же деле, счет убитых солдат вашей армии давно идет на тысячи, а пленных - на сотни.
+        </div>
+        <div class="text">
+          Здесь будет публиковаться информация о всех выявленных военных, которых удалось опознать, а также их фото из обычной жизни и информация об их родственниках и знакомых. Каждый может убедиться в правдивости этой информации.
+        </div>
+        <div class="text"> 
+          Информация разделена на две категории - пленные и мертвые.
+        </div>
+        <div class="text">
+          Мы обращаемся к вам с призывом требовать от вашего военного руководства прекратить эту войну. Идите в части, в которых служат ваши друзья и знакомые! Верните своих людей домой! Заберите погибших и остановите мясорубку. Поверьте, мы готовы стоять за нашу родину до конца!
+        </div>
+        </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <ul class="nav">
+        <li class="nav-item">
+          <span class="nav-link red active" id="tabPrisoners">Пленные</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link black" id="tabDead">Мертвые</span>
+        </li>
+      </ul>
+
+      <div class="row main-table red" id="personsGallery">
+      </div>
+
+    </div>
+
+    <div class="row grey text-center font-weight-bold">
+      <div class="col-12">ИНФОРМАЦИЯ О ДОСТАВКЕ</div>
+    </div>
+
+    <div class="row contacts text-center">
+      <div class="col-12">Если хотите подключиться к процессу идентификации окупантов и их родственников - пишите на </div>
+      <div class="col-12 important">
+        <div class="col-12"><a class="no-link-style" href="mailto:ihtamnet.in.ukraine@gmail.com">ihtamnet.in.ukraine@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="row footer text-center justify-content-center">
+      <div class="col-6">Фотографии и тексты использованы для демонстрации возможностей шаблона сайта, пожалуйста, не используйте их в коммерческих целях.</div>
+    </div>
+
+
+<!-- Modal -->
+<div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Иван Ианов Иванович</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="container detailed-person">
+          <div class="row">
+            <div class="col12" id="avatar">
+              <img id="mainPhoto" src=""/>
+            </div>
+            <div class="col-6">Номер:</div>  <div class="col-6" id="num"></div>
+            <div class="col-6">Категория:</div>  <div class="col-6" id="category"></div>
+            <div class="col-6">ФИО:</div>  <div class="col-6" id="fullName"></div>
+            <div class="col-6">Дата рождения:</div>  <div class="col-6" id="dateOfBirth"></div>
+            <div class="col-6">Военная часть:</div>  <div class="col-6" id="militaryUnit"></div>
+            <div class="col-6">Ссылка на ВК:</div>  <div class="col-6" id="vk"></div>
+            <div class="col-6">Ссылка на instagram:</div>  <div class="col-6" id="inst"></div>
+            <div class="col-6">Ссылка на ресурс:</div>  <div class="col-6" id="linkToSource"></div>
+            <div class="col-6">Альбом с доп фото его:</div>  <div class="col-6" id="morePhoto"></div>
+            <div class="col-6">Информация про друзей:</div>  <div class="col-6" id="friendsInfo">ч</div>
+            <div class="col-6">Детали:</div>  <div class="col-6" id="moreInfo"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link re="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    $( document ).ready(function() {
+      var data = []
+      $.getJSON('http://localhost:5000/test.json', function(x){console.log('!!!', x)})
+      $.getJSON('https://jsonplaceholder.typicode.com/todos/1', function(x){
+        console.log(x)
+        data = [
+        {
+        "num": "1",   
+        "category": "Мертвый",   
+        "main_photo": "https://i.dailymail.co.uk/1s/2022/02/25/16/54653835-10552005-A_member_of_South_Africa_s_Ukrainian_Association_holds_a_poster_-m-425_1645806909630.jpg",   
+        "full_name": "Иванов Иван Иванович",   
+        "date_of_birth": "11.11.1111",   
+        "military_unit": "11 111",   
+        "vk": "http://gdh",   
+        "inst": "http://gddh",   
+        "lint_to_source": "http://dg",   
+        "more_photo": "...",   
+        "friends_info": "...",   
+        "more_info": "...",   
+        }
+        ]
+        debugger
+        var content = ''
+        $.map( data, function( val, i ) {
+          content += '<div class="col-4 gallery-person" id="' + i + '"> \
+          <img src="' + val?.main_photo + '"/> \
+          <div>Номер: <span class="person-num">' + val?.num + '</span></div> \
+          <div class="person-name">' + val?.full_name + '</div>\
+          <div class="person-date">' + val?.date_of_birth + '</div> \
+        </div>'
+        });
+
+        $('#personsGallery').html(content)
+      });
+
+      $('#tabDead').click(function(e) {
+        console.log('d')
+        $('#tabPrisoners').removeClass('active')
+        $('#tabDead').addClass('active')
+
+        $('#personsGallery').addClass('black')
+        $('#personsGallery').removeClass('red')
+      }); 
+      
+      $('#tabPrisoners').click(function(e) {
+        console.log('h')
+        $('#tabDead').removeClass('active')
+        $('#tabPrisoners').addClass('active')
+
+        $('#personsGallery').addClass('red')
+        $('#personsGallery').removeClass('black')
+      });
+
+      $( "#personsGallery" ).on( "click", ".gallery-person", function(e) {
+        $('#modal').modal('show')
+        var personId = $(e.currentTarget).attr('id')
+        var person = data[personId]
+        console.log(person)
+        $('#mainPhoto').attr('src', person.main_photo)
+
+        $('#num').html(person.num)
+        $('#category').html(person.category)
+        $('#fullName').html(person.full_name)
+        $('#modalLabel').html(person.full_name)
+        $('#dateOfBirth').html(person.date_of_birth)
+        $('#militaryUnit').html(person.military_unit)
+
+        $('#friendsInfo').html(person.friends_info)
+        $('#moreInfo').html(person.more_info)
+
+        if(person.vk )$('#vk').html('<a target="_blank" href=' + person.vk + '>' + person.vk + '</a>')
+        if(person.inst) $('#inst').html('<a target="_blank" href=' + person.inst + '>' + person.inst + '</a>')
+        if(person.linkToSource) $('#linkToSource').html('<a target="_blank" href=' + person.linkToSource + '>' + person.linkToSource + '</a>')
+        if(person.morePhoto) $('#morePhoto').html('<a target="_blank" href=' + person.morePhoto + '>' + person.morePhoto + '</a>')
+      });
+    }) 
+    </script>
+  </body>
+</html>
