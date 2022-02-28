@@ -174,7 +174,8 @@
       }
       /////////////////////////////////////////////////////////////////////////////////////
 
-      $.getJSON('./db.json', function(response){
+      // $.getJSON('./db.json', function(response){
+      $.getJSON('https://ihtamnet.gidno.org/soldiers', function(response){
         data = response
 
         $('#personsGallery').html(setGalleryByTab('Пленные'))
