@@ -189,8 +189,8 @@
       }
       /////////////////////////////////////////////////////////////////////////////////////
 
-      $.getJSON('./db.json', function(response){
-      // $.getJSON('https://api.ihtamnet.in.ua/soldiers', function(response){
+      // $.getJSON('./db.json', function(response){
+      $.getJSON('https://api.ihtamnet.in.ua/soldiers', function(response){
         data = response
 
         $('#personsGallery').html(setGalleryByTab('Пленные'))
