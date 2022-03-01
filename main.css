@@ -361,6 +361,10 @@
     padding-bottom: 60px;
     color: #fff;
 }
+ 
+a {
+  word-wrap: break-word;
+}
 
 a.no-link-style, a.no-link-style:hover {
   color: #000;
