@@ -300,6 +300,10 @@
     color: #000000;
 }
 
+img {
+  max-width: 100%;
+}
+
 .main-table {
     border: solid 5px;
     margin-right: 0;
@@ -322,7 +326,6 @@
 
 .gallery-person img {
     padding-top: 15px;
-    max-width: 100%;
     max-height: 200px;
 }
 
@@ -378,10 +381,6 @@ a.no-link-style, a.no-link-style:hover {
 
 .row {
     margin: 0;
-}
-
-.detailed-person img {
-  max-width: 100%;
 }
 
 @media (min-width: 576px) {
