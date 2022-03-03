@@ -78,7 +78,7 @@
           <span>Сортировать по:</span>
           <span class="btn" id="sortByAlph">алфавиту</span>
           <span class="btn" id="sortByBirth">дате рождения</span>
-          <span class="btn" id="sortByDate">дате добавления</span>
+          <span class="btn active" id="sortByDate">дате добавления</span>
       </div>
     </nav>
     </div>
@@ -165,7 +165,7 @@
       var data = []
       var filteredData = []
       var searchValue = ''
-      var sortBy = ''
+      var sortBy = 'date'
       var setModalData = function(person) {
 
         if(!modal) return
