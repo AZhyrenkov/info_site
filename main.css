@@ -261,7 +261,7 @@
   }
 
   .main-text-block {
-    padding: 45px 0;
+    padding-top: 45px;
     text-align: center;
     font-size: 18px;
   }
@@ -409,8 +409,12 @@ a.no-link-style, a.no-link-style:hover {
 .btn-outline-success:not(:disabled):not(.disabled).active, 
 .btn-outline-success:not(:disabled):not(.disabled):active, 
 .show>.btn-outline-success.dropdown-toggle {
-  background-color: #6A0000;
-  border-color: #6A0000;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.btn-secondary {
+  background-color: #f8f9fa;
 }
 
 .navbar {
@@ -420,4 +424,67 @@ a.no-link-style, a.no-link-style:hover {
 .navbar .btn {
   color: #fff;
   border-color: #fff;
+}
+
+.navbar .form-inline .form-control {
+  border: 0;
+  padding: 0;
+  width: calc(100% - 50px);
+}
+
+.navbar input::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+}
+
+.navbar .label {
+  font-size: 18px;
+}
+
+.icon-search {
+  background-image: url("./images/search_ico.png");
+  background-position: center center;
+  background-size: contain;
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+.nav-search {
+  border-bottom: solid 2px black;
+  width: calc(100% - 85px);
+}
+
+.nav-sort .btn {
+  border: solid 1px black;
+  color: black;
+  font-weight: 100;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .nav-sort .btn {
+    width: 100%;
+  }
+}
+
+.nav-sort .btn:hover, .nav-sort .btn.active {
+  background: #000;
+  color: #fff;
+}
+
+.nav-sort * {
+  margin-right: 15px;
+}
+
+.navbar * {
+  display: inline-block;
+}
+
+.navbar .form-inline .form-control {
+  box-shadow: none;
+}
+
+#searchForm {
+  margin: 0 auto;
 }

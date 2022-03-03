@@ -27,12 +27,12 @@
     </script>
   </head>
   <body>
-    <img src="./images/header.png" class="logo" />   
+    <img src="./images/header.png" class="logo" loading="lazy" />   
     <div class="container">
       <div class="row justify-content-center main-text-row">
         <div class="col-12">
           <div class="main-text-block">
-            <img class="header-logo" src="./images/Ihtam_net_logo.png" />
+            <img class="header-logo" src="./images/Ihtam_net_logo.png" loading="lazy" />
           <div class="font-weight-bold">Внимание всем жителям Российской Федерации, а также территорий Украины, оккупированных и временно контролируемых правительством РФ.</div>
           <div class="text">
           24 февраля 2022, посреди ночи, военные силы вашей страны начали массированное вторжение, сопровождаемое применением всего самого современного оружия, находящегося в распоряжении Российской Федерации.
@@ -59,12 +59,28 @@
     </div>
 
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-          <form class="form-inline" id="searchForm">
-            <input class="form-control mr-sm-2 col-8" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <nav class="navbar navbar-expand-lg navbar-light pt-5 pb-5">
+        <form class="form-inline col-md-8 col-sm-12 p-0" id="searchForm">
+            <span class="text-right pr-4 font-weight-normal label">Поиск</span>
+            <span class="nav-search p-0">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <i class="icon-search"></i> 
+              </button>
+              <input class="form-control mr-0 p-0" type="search" placeholder="Введите поисковый запрос" aria-label="Search">
+            </span>
           </form>
       </nav>
+    </div>
+
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light pb-5">      
+        <div class="col-12 nav-sort">
+          <span>Сортировать по:</span>
+          <span class="btn" id="sortByAlph">алфавиту</span>
+          <span class="btn" id="sortByBirth">дате рождения</span>
+          <span class="btn" id="sortByDate">дате добавления</span>
+      </div>
+    </nav>
     </div>
 
     <div class="container">
@@ -113,7 +129,7 @@
         <div class="container detailed-person">
           <div class="row">
             <div class="col-12 text-center mb-4" id="avatar">
-              <img id="mainPhoto" src=""/>
+              <img id="mainPhoto" loading="lazy" src=""/>
             </div>
             <div class="col-6 font-weight-bold">Номер:</div>  <div class="col-6" id="num"></div>
             <div class="col-6 font-weight-bold">Категория:</div>  <div class="col-6" id="category"></div>
@@ -149,6 +165,7 @@
       var data = []
       var filteredData = []
       var searchValue = ''
+      var sortBy = ''
       var setModalData = function(person) {
 
         if(!modal) return
@@ -160,7 +177,7 @@
         if(person.more_photo && person.more_photo.length) {
           var images = ''
           $.map(person.more_photo, function(image_url) {
-            images += '<div class="col-12 mb-3"><img src="' + image_url + '"></div>'
+            images += '<div class="col-12 mb-3"><img src="' + image_url + '" loading="lazy"></div>'
           });
           $('#morePhoto').html(images)
         }
@@ -184,7 +201,7 @@
         var content = ''
         $.map(filteredData, function( val, i ) {
           content += '<div class="col-lg-4 gallery-person" id="' + i + '"> \
-          <img src="' + val?.main_photo + '"/> \
+          <img src="' + val?.main_photo + '" loading="lazy"/> \
           <div>Номер: <span class="person-num">' + val?.num + '</span></div> \
           <div class="person-name">' + val?.full_name + '</div>\
           <div class="person-date">' + (val?.date_of_birth || '-') + '</div> \
@@ -254,7 +271,7 @@
 
       $('#searchForm').on( "submit", function(e) {
         e.preventDefault()
-        var newSearchValue = $('#searchForm :input').val()
+        var newSearchValue = $('#searchForm input').val()
         if(newSearchValue === searchValue) return 
         searchValue = newSearchValue
         filteredData = data.filter(function(value) {
@@ -264,11 +281,84 @@
       })
 
       $('#searchForm input[type="search"]').change(function(e) {
-        var newSearchValue = $('#searchForm :input').val()
+        var newSearchValue = $('#searchForm input').val()
         if(newSearchValue === '' && newSearchValue !== searchValue) {
           searchValue = newSearchValue
           renderGallery(setGalleryByTab(activeTab))
         }
+      })
+
+      $("#sortByAlph").click(function() {
+        if(sortBy === 'alph') {
+          renderGallery(setGalleryByTab(activeTab))
+          $("#sortByAlph").removeClass('active')
+          return 
+        }
+
+        filteredData = data
+        .filter(function(value) {
+          return value.category === activeTab
+        })
+        .sort(function(first, second) {
+          if(first.full_name < second.full_name) { return -1; }
+          if(first.full_name > second.full_name) { return 1; }
+          return 0;
+        })
+
+        renderGallery(filteredData)
+
+        sortBy = 'alph'
+        $("#sortByAlph").addClass('active')
+        $("#sortByDate").removeClass('active')
+        $("#sortByBirth").removeClass('active')
+      })
+
+      $("#sortByDate").click(function() {
+        if(sortBy === 'date') {
+          renderGallery(setGalleryByTab(activeTab))
+          $("#sortByDate").removeClass('active')
+          return 
+        }
+
+        filteredData = data
+        .filter(function(value) {
+          return value.category === activeTab
+        })
+        .sort(function(first, second) {
+          if(new Date(first.date_of_birth) < new Date(second.date_of_birth)) { return -1; }
+          if(new Date(first.date_of_birth) > new Date(second.date_of_birth)) { return 1; }
+          return 0;
+        })
+
+        renderGallery(filteredData)
+
+        sortBy = 'date'
+        $("#sortByDate").addClass('active')
+        $("#sortByAlph").removeClass('active')
+        $("#sortByBirth").removeClass('active')
+      })
+
+      $("#sortByBirth").click(function() {
+        if(sortBy === 'birth') {
+          renderGallery(setGalleryByTab(activeTab))
+          $("#sortByBirth").removeClass('active')
+          return 
+        }
+
+        filteredData = data
+        .filter(function(value) {
+          return value.category === activeTab
+        })
+        .sort(function(first, second) {
+          return first.num - second.num
+        })
+
+        renderGallery(filteredData)
+
+        sortBy = 'birth'
+        $("#sortByBirth").addClass('active')
+        $("#sortByDate").removeClass('active')
+        $("#sortByAlph").removeClass('active')
       })
     }) 
 
