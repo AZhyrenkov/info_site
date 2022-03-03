@@ -388,3 +388,36 @@ a.no-link-style, a.no-link-style:hover {
     max-width: 600px;
   }
 }
+
+.btn, .form-control {
+  border-radius: 0;
+}
+
+.btn {
+  border-color: #540202;
+  color: #540202;
+}
+
+.btn-outline-success.focus, .btn-outline-success:focus,
+.btn-outline-success:not(:disabled):not(.disabled).active:focus, 
+.btn-outline-success:not(:disabled):not(.disabled):active:focus, 
+.show>.btn-outline-success.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem #6a000045;
+}
+
+.btn-outline-success:hover, 
+.btn-outline-success:not(:disabled):not(.disabled).active, 
+.btn-outline-success:not(:disabled):not(.disabled):active, 
+.show>.btn-outline-success.dropdown-toggle {
+  background-color: #6A0000;
+  border-color: #6A0000;
+}
+
+.navbar {
+  justify-content: flex-end;
+}
+
+.navbar .btn {
+  color: #fff;
+  border-color: #fff;
+}

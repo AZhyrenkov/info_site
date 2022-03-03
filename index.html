@@ -59,6 +59,15 @@
     </div>
 
     <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+          <form class="form-inline" id="searchForm">
+            <input class="form-control mr-sm-2 col-8" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+      </nav>
+    </div>
+
+    <div class="container">
       <ul class="nav">
         <li class="nav-item">
           <span class="nav-link red active" id="tabPrisoners">Пленные</span>
@@ -136,8 +145,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
     $( document ).ready(function() {
+      var activeTab = 'Пленные'
       var data = []
       var filteredData = []
+      var searchValue = ''
       var setModalData = function(person) {
 
         if(!modal) return
@@ -169,13 +180,7 @@
         if(person.link_to_source) $('#linkToSource').html('<a target="_blank" href=' + person.link_to_source + '>' + person.link_to_source + '</a>')
       }
 
-      var setGalleryByTab = function(tab) {
-        if(!data) return ''
-        if(tab !== 'Пленные' && tab !== 'Мертвые') return ''
-        filteredData = data.filter(function(value) {
-          return value.category === tab
-        })
-
+      var renderGallery = function(dataToRender) {
         var content = ''
         $.map(filteredData, function( val, i ) {
           content += '<div class="col-lg-4 gallery-person" id="' + i + '"> \
@@ -185,7 +190,19 @@
           <div class="person-date">' + (val?.date_of_birth || '-') + '</div> \
         </div>'
         });
-        return content
+
+        $('#personsGallery').html(content)
+      }
+
+      var setGalleryByTab = function(tab) {
+        if(!data) return ''
+        if(tab !== 'Пленные' && tab !== 'Мертвые') return ''
+        activeTab = tab
+        filteredData = data.filter(function(value) {
+          return value.category === tab
+        })
+
+        renderGallery(filteredData)
       }
       /////////////////////////////////////////////////////////////////////////////////////
 
@@ -193,7 +210,7 @@
       $.getJSON('https://api.ihtamnet.in.ua/soldiers', function(response){
         data = response
 
-        $('#personsGallery').html(setGalleryByTab('Пленные'))
+        renderGallery(setGalleryByTab('Пленные'))
 
         const currentPersonNum = +(parent.location.hash && parent.location.hash.slice(1))
         if(currentPersonNum) {
@@ -211,7 +228,7 @@
         $('#personsGallery').addClass('black')
         $('#personsGallery').removeClass('red')
 
-        $('#personsGallery').html(setGalleryByTab('Мертвые'))
+        renderGallery(setGalleryByTab('Мертвые'))
       }); 
       
       $('#tabPrisoners').click(function(e) {
@@ -221,7 +238,7 @@
         $('#personsGallery').addClass('red')
         $('#personsGallery').removeClass('black')
 
-        $('#personsGallery').html(setGalleryByTab('Пленные'))
+        renderGallery(setGalleryByTab('Пленные'))
       });
 
       $( "#personsGallery" ).on( "click", ".gallery-person", function(e) {
@@ -233,6 +250,25 @@
 
       $('#modal').on('hidden.bs.modal', function (e) {
         window.history.back();
+      })
+
+      $('#searchForm').on( "submit", function(e) {
+        e.preventDefault()
+        var newSearchValue = $('#searchForm :input').val()
+        if(newSearchValue === searchValue) return 
+        searchValue = newSearchValue
+        filteredData = data.filter(function(value) {
+          return (value.full_name.toLowerCase()).includes(newSearchValue.toLowerCase())
+        })
+        renderGallery(filteredData)
+      })
+
+      $('#searchForm input[type="search"]').change(function(e) {
+        var newSearchValue = $('#searchForm :input').val()
+        if(newSearchValue === '' && newSearchValue !== searchValue) {
+          searchValue = newSearchValue
+          renderGallery(setGalleryByTab(activeTab))
+        }
       })
     }) 
 
